@@ -23,12 +23,9 @@ public class Foo
         BotClient client = new BotClient(output);
 
         output.WriteLine("Trying to login");
-        // Call LoginAsync
-        //NjIyODM2ODA5ODg5NzQyODQ5.GJisoX.3RwBTq7U8_l-vxUbowbyXcKfVbtYtTT4n5d7yI
-        await client.LoginAsync("NjIyODM2ODA5ODg5NzQyODQ5.GJisoX.3RwBTq7U8_l-vxUbowbyXcKfVbtYtTT4n5d7yI");
-
-        // Read Channel Messages
-        await client.readChannelMessages();
+        
+        // Call Login
+        client.LoginAsync("NjIyODM2ODA5ODg5NzQyODQ5.GJisoX.3RwBTq7U8_l-vxUbowbyXcKfVbtYtTT4n5d7yI");
 
         // Block this task until the program is closed manually (Comment it out, if running unit test)
         //await Task.Delay(-1);
@@ -47,13 +44,8 @@ public class BotClient : DiscordClient
 
     // This is essential since it will create more obvious code
     // and not offloading the event code into an unrelated class..
-    public override void OnLoginSuccessful(DiscordClient client)
+    public override void OnLoginSuccessful()
     {
-        output.WriteLine(client.user.username + " has successfully logged in!");
-    }
-
-    public override void OnChannelMessages(DiscordClient client, Message message)
-    {
-        output.WriteLine(client.user.username + " : " + message.author.username);
+        output.WriteLine("Logged IN!");
     }
 }

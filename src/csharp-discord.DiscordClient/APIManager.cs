@@ -50,4 +50,20 @@ internal class APIManager
         HttpResponseMessage response = await send_request(client, "GET", $"channels/{channel_id}/messages?limit=1");
         return await response.Content.ReadAsStringAsync();
     }
+
+    /// <summary>
+    /// Sends a request to the discord gateway and receive opcodes
+    /// </summary>
+    /// <param name="client"></param>
+    /// <param name="method"></param>
+    /// <param name="request_url"></param>
+    /// <param name="body"></param>
+    /// <returns> Returns a HttpResponseMessage </returns>
+    async static public Task<HttpResponseMessage> receive_events(HttpClient client, HttpContent body = null)
+    {
+        HttpResponseMessage response = null;
+        response = await client.PostAsync("wss://gateway.discord.gg/", body);
+
+        return response;
+    }
 }

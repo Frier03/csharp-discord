@@ -1,4 +1,4 @@
-# CSharp-Discord
+# CSharp-Discord (Self Bot)
 
 ## Example
 ```c

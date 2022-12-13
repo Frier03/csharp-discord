@@ -1,7 +1,7 @@
 # CSharp-Discord
 
 ```c
-// Create an instance of BotClient which _DiscordClient is inherited into
+// Create an instance of BotClient which DiscordClient is inherited into
 BotClient _client = new BotClient();
 
 // Call LoginAsync
@@ -12,7 +12,7 @@ await Task.Delay(-1);
 ```
 
 ```c
-// Personal Implementation of _DiscordClient base class
+// Personal Implementation of DiscordClient base class
 public class BotClient : DiscordClient
 {
     // This is essential since it will create more obvious code

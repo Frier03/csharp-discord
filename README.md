@@ -6,9 +6,6 @@ BotClient _client = new BotClient();
 
 // Call LoginAsync
 await _client.LoginAsync("Token");
-
-// Block this task until the program is closed manually (Comment it out, if running unit test)
-await Task.Delay(-1);
 ```
 
 ```c

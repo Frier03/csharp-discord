@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{96A46635-F0FC-4891-8884-7DFC44F4A590}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "csharp-discord.DiscordClient", "src\csharp-discord.DiscordClient\csharp-discord.DiscordClient.csproj", "{8305DF47-459E-468C-88B6-B053B4F22834}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{E7B421CB-7B7C-498F-9CDA-3FBA2544926D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "csharp-discord.DiscordClient.Tests", "test\csharp-discord.DiscordClient.Tests\csharp-discord.DiscordClient.Tests.csproj", "{6C13906F-FB99-47A2-87CD-EC302ADB28A1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8305DF47-459E-468C-88B6-B053B4F22834}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8305DF47-459E-468C-88B6-B053B4F22834}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8305DF47-459E-468C-88B6-B053B4F22834}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8305DF47-459E-468C-88B6-B053B4F22834}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C13906F-FB99-47A2-87CD-EC302ADB28A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C13906F-FB99-47A2-87CD-EC302ADB28A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C13906F-FB99-47A2-87CD-EC302ADB28A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C13906F-FB99-47A2-87CD-EC302ADB28A1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8305DF47-459E-468C-88B6-B053B4F22834} = {96A46635-F0FC-4891-8884-7DFC44F4A590}
+		{6C13906F-FB99-47A2-87CD-EC302ADB28A1} = {E7B421CB-7B7C-498F-9CDA-3FBA2544926D}
+	EndGlobalSection
+EndGlobal

@@ -1,6 +1,6 @@
 # CSharp-Discord
 
-```
+```c
 // Create an instance of BotClient which _DiscordClient is inherited into
 BotClient _client = new BotClient();
 
@@ -11,7 +11,7 @@ await _client.LoginAsync("Token");
 await Task.Delay(-1);
 ```
 
-```
+```c
 // Personal Implementation of _DiscordClient base class
 public class BotClient : DiscordClient
 {

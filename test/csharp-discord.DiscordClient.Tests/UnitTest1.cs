@@ -25,7 +25,7 @@ public class Foo
         output.WriteLine("Trying to login");
         // Call LoginAsync
         //NjIyODM2ODA5ODg5NzQyODQ5.GJisoX.3RwBTq7U8_l-vxUbowbyXcKfVbtYtTT4n5d7yI
-        await client.LoginAsync("NjIyODM2ODA5ODg5NzQyODQ5.GJisoX.3RwBTq7U8_l-vxUbowbyXcKfVbtYtTT4n5d7yI");
+        await client.LoginAsync("Token");
 
         // Read Channel Messages
         await client.readChannelMessages();

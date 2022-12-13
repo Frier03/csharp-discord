@@ -13,11 +13,11 @@ namespace csharp_discord.DiscordClient;
 
 public class DiscordClient
 {
-    enum ErrorFlags : ushort
+    private enum ErrorFlags : ushort
     {
         Warning = 8625
     }
-    enum ClientStatus : ushort
+    private enum ClientStatus : ushort
     {
         Offline = 0,
         Online = 1
@@ -25,6 +25,7 @@ public class DiscordClient
 
     private HttpClient httpClient = new HttpClient();
     public User user = new User();
+    private Thread onMessage;
 
     public DiscordClient()
     {
@@ -33,8 +34,14 @@ public class DiscordClient
         httpClient.DefaultRequestHeaders.Add("Accept-Language", "en-US");
         httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) discord/0.0.309 Chrome/83.0.4103.122 Electron/9.3.5 Safari/537.36");
         httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+        onMessage = new Thread(ChannelMessageUpdater);
     }
 
+    /////////////////////////// CALLABLE FUNCTIONS ///////////////////////////
+    public async Task readChannelMessages() { onMessage.Start(); }
+
+    public async Task abort_readChannelMessages() { onMessage.Abort(); }
 
     public async Task LoginAsync(String token)
     {
@@ -61,6 +68,27 @@ public class DiscordClient
 
     }
 
-    /////////////////////////// EVENTS ///////////////////////////
+    /////////////////////////// VIRTUAL METHOD UPDATERS ///////////////////////////
+    private void ChannelMessageUpdater()
+    {
+        Message message = new Message();
+        message.author = new User();
+
+        while (true)
+        {
+            message.author.username = "AuthorNameHere";
+            message.content = "";
+            message.channel_name = "";
+            message.channel_id = "2323";
+
+            OnChannelMessages(this, message);
+
+            Thread.Sleep(10);
+        }
+    }
+
+    /////////////////////////// VIRTUAL METHODS ///////////////////////////
     public virtual void OnLoginSuccessful(DiscordClient client = null) { }
+    public virtual void OnChannelMessages(DiscordClient client = null, Message message = null) { }
+    public virtual void OnDMMessages() { }
 }

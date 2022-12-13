@@ -20,11 +20,15 @@ public class Foo
     {
         output.WriteLine("Creating BotClient Instance");
         // Create an instance of BotClient which _DiscordClient is inherited into
-        BotClient _client = new BotClient(output);
+        BotClient client = new BotClient(output);
 
         output.WriteLine("Trying to login");
         // Call LoginAsync
-        await _client.LoginAsync("Token");
+        //NjIyODM2ODA5ODg5NzQyODQ5.GJisoX.3RwBTq7U8_l-vxUbowbyXcKfVbtYtTT4n5d7yI
+        await client.LoginAsync("NjIyODM2ODA5ODg5NzQyODQ5.GJisoX.3RwBTq7U8_l-vxUbowbyXcKfVbtYtTT4n5d7yI");
+
+        // Read Channel Messages
+        await client.readChannelMessages();
 
         // Block this task until the program is closed manually (Comment it out, if running unit test)
         //await Task.Delay(-1);
@@ -47,7 +51,9 @@ public class BotClient : DiscordClient
     {
         output.WriteLine(client.user.username + " has successfully logged in!");
     }
+
+    public override void OnChannelMessages(DiscordClient client, Message message)
+    {
+        output.WriteLine(client.user.username + " : " + message.author.username);
+    }
 }
-
-
-//NjIyODM2ODA5ODg5NzQyODQ5.GJisoX.3RwBTq7U8_l-vxUbowbyXcKfVbtYtTT4n5d7yI

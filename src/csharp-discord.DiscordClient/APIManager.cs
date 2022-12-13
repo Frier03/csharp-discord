@@ -36,4 +36,18 @@ internal class APIManager
 
         return response;
     }
+
+    /// <summary>
+    /// Gets the newest message sent in the channel
+    /// Recursive Function
+    /// </summary>
+    /// <param name="client"></param>
+    /// <param name="channel_id"></param>
+    /// <param name="last_message_id"></param>
+    /// <returns> Returns a JToken with the message data </returns>
+    async static public Task<String> getLatestMessage(HttpClient client, string channel_id, string last_message_id)
+    {
+        HttpResponseMessage response = await send_request(client, "GET", $"channels/{channel_id}/messages?limit=1");
+        return await response.Content.ReadAsStringAsync();
+    }
 }

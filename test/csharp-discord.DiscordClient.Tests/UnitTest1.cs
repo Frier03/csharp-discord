@@ -48,6 +48,3 @@ public class BotClient : DiscordClient
         output.WriteLine(client.user.username + " has successfully logged in!");
     }
 }
-
-
-//NjIyODM2ODA5ODg5NzQyODQ5.GJisoX.3RwBTq7U8_l-vxUbowbyXcKfVbtYtTT4n5d7yI

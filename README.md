@@ -1,5 +1,6 @@
 # CSharp-Discord
 
+## Example
 ```c
 // Create an instance of BotClient which DiscordClient is inherited into
 BotClient _client = new BotClient();
@@ -8,6 +9,7 @@ BotClient _client = new BotClient();
 await _client.LoginAsync("Token");
 ```
 
+### Virtual methods
 ```c
 // Personal Implementation of DiscordClient base class
 public class BotClient : DiscordClient

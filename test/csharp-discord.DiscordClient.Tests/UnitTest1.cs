@@ -18,34 +18,22 @@ public class Foo
     [Fact]
     public async void Main()
     {
-        output.WriteLine("Creating BotClient Instance");
+        output.WriteLine("Creating DiscordClient Instance");
         // Create an instance of BotClient which _DiscordClient is inherited into
-        BotClient client = new BotClient(output);
+        DiscordClient client = new DiscordClient();
 
         output.WriteLine("Trying to login");
         
         // Call Login
-        client.LoginAsync("NjIyODM2ODA5ODg5NzQyODQ5.GJisoX.3RwBTq7U8_l-vxUbowbyXcKfVbtYtTT4n5d7yI");
+        client.LoginAsync("TOKEN");
+
+        client.ListenFor(DiscordClient.DiscordEvent.READY, data =>
+        {
+            Ready readyData = (Ready)data;
+            output.WriteLine(readyData.d.user.username + " has logged in!");
+        });
 
         // Block this task until the program is closed manually (Comment it out, if running unit test)
         //await Task.Delay(-1);
-    }
-}
-
-// Personal Implementation of _DiscordClient base class
-public class BotClient : DiscordClient
-{
-    private readonly ITestOutputHelper output;
-
-    public BotClient(ITestOutputHelper output)
-    {
-        this.output = output;
-    }
-
-    // This is essential since it will create more obvious code
-    // and not offloading the event code into an unrelated class..
-    public override void OnLoginSuccessful()
-    {
-        output.WriteLine("Logged IN!");
     }
 }

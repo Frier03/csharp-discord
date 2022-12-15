@@ -22,6 +22,12 @@ public class DiscordClient
     private string gatewayUrl = "wss://gateway.discord.gg";
     private Thread webSocketThread;
 
+    // Define an enumeration of possible events that can be listened for
+    public enum DiscordEvent
+    {
+        READY
+    }
+
     public DiscordClient() { webSocketThread = new Thread(webSocketListener);  }
 
     private async void webSocketListener()
@@ -66,27 +72,66 @@ public class DiscordClient
                     var data = streamReader.ReadToEnd();
 
                     // Parse the JSON string
-                    //JsonElement json = JsonDocument.Parse(data).RootElement;
+                    JsonElement json = JsonDocument.Parse(data).RootElement;
 
                     // Try to get the value of the "t" attribute
-                    //string? EventType = json.TryGetProperty("t", out JsonElement tValue) ? tValue.GetString() : null;
+                    string? EventType = json.TryGetProperty("t", out JsonElement tValue) ? tValue.GetString() : null;
 
                     // Handle this event now
-                    //CallEvent(EventType);
-
-                    // Deserialize the JSON string into a Message object
-                    //var message = System.Text.Json.JsonSerializer.Deserialize<Message>(data);
+                    HandleEvent(EventType, data);
                 }
             }
         }
     }
 
-    private void CallEvent(string EventType)
-    {
-        if (EventType == "READY")
+    // Define a dictionary that maps event type strings to the corresponding data types
+    private readonly Dictionary<string, Type> _eventDataTypes = new Dictionary<string, Type>
         {
-            OnLoginSuccessful();
+            { "READY", typeof(Ready) }
+            // Add more event types here as needed
+        };
+
+    // Define a dictionary that maps event names to a list of actions to be performed when the event is triggered
+    private readonly Dictionary<DiscordEvent, List<Action<object>>> _eventActions = new Dictionary<DiscordEvent, List<Action<object>>>();
+
+    // Add an action to be performed when the specified event is triggered
+    public void ListenFor(DiscordEvent eventName, Action<object> action)
+    {
+        // Add the action to the list of actions for this event
+        if (!_eventActions.ContainsKey(eventName))
+            _eventActions[eventName] = new List<Action<object>>();
+        _eventActions[eventName].Add(action);
+    }
+
+    // Call all of the actions registered for the specified event
+    private void OnEvent(DiscordEvent eventName, object data)
+    {
+        // Check if there are any actions registered for this event
+        if (_eventActions.ContainsKey(eventName))
+        {
+            // Call all of the actions registered for this event
+            foreach (var action in _eventActions[eventName])
+            {
+                action(data);
+            }
         }
+    }
+
+    // Call the appropriate event handling method based on the event type
+    private void HandleEvent(string eventType, string data)
+    {
+        if (eventType == null || data == null)
+            return;
+
+        // Try to get the corresponding DiscordEvent enum value for this event type string
+        if (!Enum.TryParse(eventType, out DiscordEvent eventName))
+            return;
+
+        // Deserialize the data using the appropriate data type
+        object deserializedData = JsonSerializer.Deserialize(data, _eventDataTypes[eventType]);
+
+        // Call all of the actions registered for this event
+        OnEvent(eventName, deserializedData);
     }
 
     public async void LoginAsync(String token)
@@ -117,8 +162,4 @@ public class DiscordClient
 
         webSocketThread.Start();
     }
-
-
-    /////////////////////////// VIRTUAL METHODS ///////////////////////////
-    public virtual void OnLoginSuccessful() { }
 }

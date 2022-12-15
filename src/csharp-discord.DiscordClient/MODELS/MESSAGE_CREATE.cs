@@ -1,6 +1,4 @@
-﻿using System;
-
-public class Message
+﻿public class Message
 {
     public string t { get; set; }
     public int s { get; set; }

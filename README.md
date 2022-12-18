@@ -6,7 +6,7 @@
 DiscordClient client = new DiscordClient();
 
 // Call LoginAsync
-await client.LoginAsync("Token");
+client.LoginAsync("Token");
 ```
 
 ### Listen for events
